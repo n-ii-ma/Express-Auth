@@ -30,14 +30,34 @@ app.use(express.urlencoded({ extended: true }));
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
-//Rate limit
-const rateLimit = require("express-rate-limit");
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 10, // 10 requests
-});
+// Express Session
+const session = require("express-session");
+// const db = require("./db/index");
+// const pgSession = require("connect-pg-simple")(session);
 
-app.use(limiter);
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 604800,
+    },
+  })
+);
+
+// Passport
+const initialize = require("./configs/passport");
+const passport = require("passport");
+
+initialize(passport);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Express Flash
+const flash = require("express-flash");
+app.use(flash());
 
 // Port
 const PORT = process.env.PORT || 3000;
@@ -47,6 +67,7 @@ app.set("view engine", "ejs");
 
 // Router
 const usersRouter = require("./routes/users");
+const { connect } = require("./routes/users");
 app.use("/users", usersRouter);
 
 // Error handling
