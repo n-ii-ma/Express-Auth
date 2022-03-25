@@ -1,6 +1,9 @@
 const express = require("express");
 const usersRouter = express.Router();
 
+// Callbacks
+const { register } = require("../controllers/usersCallbacks");
+
 // Homepage
 usersRouter.get("/", (req, res) => {
   res.render("home");
@@ -25,5 +28,8 @@ usersRouter.get("/dashboard", (req, res) => {
 usersRouter.get("/logout", (req, res) => {
   res.redirect("/users/login");
 });
+
+// POST register
+usersRouter.post("/register", register);
 
 module.exports = usersRouter;
