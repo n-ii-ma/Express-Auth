@@ -13,11 +13,19 @@ const {
   checkNotAuthenticated,
 } = require("../utils/helper");
 
+// Validation
+const registerValidation = require("../utils/validator");
+
 //Rate limit
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 10, // 10 requests
+  messsage: "Too many requests, please try again later.",
+  handler: (req, res) => {
+    req.flash("limiter", "Too Many Requests, Please Try Again Later");
+    res.redirect("/users/login");
+  },
 });
 
 // Homepage
@@ -43,11 +51,12 @@ usersRouter.get("/dashboard", checkNotAuthenticated, (req, res) => {
 // Logout
 usersRouter.get("/logout", checkNotAuthenticated, (req, res) => {
   req.logOut();
+  req.flash("success_msg", "Successfully Logged Out");
   res.redirect("/users/login");
 });
 
 // POST register
-usersRouter.post("/register", limiter, register);
+usersRouter.post("/register", registerValidation, register);
 
 // POST login
 usersRouter.post(

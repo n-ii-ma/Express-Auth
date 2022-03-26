@@ -15,6 +15,25 @@
   </head>
   <body style="text-align: center">
     <h1>Log In</h1>
+
+    <div>
+      <% if (messages.success_msg) { %>
+      <p style="color: rgb(29, 204, 29)"><%= messages.success_msg %></p>
+      <% } %>
+    </div>
+
+    <div>
+      <% if (messages.error) { %>
+      <p style="color: red"><%= messages.error %></p>
+      <% } %>
+    </div>
+
+    <div>
+      <% if (messages.limiter) { %>
+      <p style="color: red"><%= messages.limiter %></p>
+      <% } %>
+    </div>
+
     <form action="/users/login" method="POST">
       <div>
         <input

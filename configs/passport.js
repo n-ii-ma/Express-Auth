@@ -16,7 +16,7 @@ const initialize = (passport) => {
       // If user doesn't exist
       if (!findUser.rows.length) {
         return done(null, false, {
-          message: "No User with that Username Found!",
+          message: "Username Incorrect!",
         });
       }
       // If user exists

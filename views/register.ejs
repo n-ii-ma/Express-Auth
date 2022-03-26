@@ -15,12 +15,28 @@
   </head>
   <body style="text-align: center">
     <h1>Sign Up</h1>
+
     <div>
-      <% if (typeof errors != "undefined") { %> <% errors.forEach((error) => {
-      %>
-      <p style="color: red"><%= error.message %></p>
-      <% }) %> <% } %>
+      <% if (messages.validation_errors) { %>
+      <p style="color: red"><%= messages.validation_errors %></p>
+      <% } %>
     </div>
+    <div>
+      <% if (messages.success_msg) { %>
+      <p><%= messages.success_msg %></p>
+      <% } %>
+    </div>
+    <div>
+      <% if (messages.unique_constraint) { %>
+      <p style="color: red"><%= messages.unique_constraint %></p>
+      <% } %>
+    </div>
+    <div>
+      <% if (messages.server_error) { %>
+      <p style="color: red"><%= messages.server_error %></p>
+      <% } %>
+    </div>
+
     <form action="/users/register" method="POST">
       <div>
         <input
