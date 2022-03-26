@@ -20,8 +20,8 @@ https://express-auth-1.herokuapp.com/users
 ## Technologies
 Project is created with:
 + express v4.17.3
-+ node.js v16.14.0
-+ npm v8.3.1
++ node.js v16.14.2
++ npm v8.5.0
 + PostgreSQL v14.2
 + VSCode v1.65.2
 
