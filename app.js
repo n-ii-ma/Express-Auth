@@ -9,7 +9,7 @@ const app = express();
 const cors = require("cors");
 const isProduction = process.env.NODE_ENV === "production";
 const corsOptions = {
-  origin: isProduction ? "https://express-auth-1.herokuapp.com/" : "*",
+  origin: isProduction ? "https://express-auth-1.herokuapp.com" : "*",
 };
 
 app.use(cors(corsOptions));
@@ -42,7 +42,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 604800,
-      sameSite: "lax",
+      secure: isProduction ? true : false,
+      sameSite: isProduction ? "none" : "lax",
     },
     store: new pgSession({
       pool: db,
