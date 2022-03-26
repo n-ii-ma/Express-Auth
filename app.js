@@ -7,9 +7,9 @@ const app = express();
 
 // CORS
 const cors = require("cors");
-// const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production";
 const corsOptions = {
-  origin: "*",
+  origin: isProduction ? "https://express-auth-1.herokuapp.com/" : "*",
 };
 
 app.use(cors(corsOptions));
