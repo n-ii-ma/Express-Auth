@@ -28,7 +28,7 @@ Project is created with:
 ## Features
 Allows clients to register and log in.
 
-## Screenshot
+## Screenshots
 ![image](https://user-images.githubusercontent.com/88039431/160245946-e6ced010-49d2-4cb3-ac63-f2b95a2fe70d.png)
 ![image](https://user-images.githubusercontent.com/88039431/160245960-5146fb71-6c99-4032-9cf6-80c0f98b4502.png)
 
