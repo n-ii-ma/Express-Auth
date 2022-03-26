@@ -67,7 +67,6 @@ app.set("view engine", "ejs");
 
 // Router
 const usersRouter = require("./routes/users");
-const { connect } = require("./routes/users");
 app.use("/users", usersRouter);
 
 // Error handling

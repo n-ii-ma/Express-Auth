@@ -21,16 +21,13 @@
       <p style="color: red"><%= messages.validation_errors %></p>
       <% } %>
     </div>
+
     <div>
-      <% if (messages.success_msg) { %>
-      <p><%= messages.success_msg %></p>
+      <% if (messages.constraint_error) { %>
+      <p style="color: red"><%= messages.constraint_error %></p>
       <% } %>
     </div>
-    <div>
-      <% if (messages.unique_constraint) { %>
-      <p style="color: red"><%= messages.unique_constraint %></p>
-      <% } %>
-    </div>
+
     <div>
       <% if (messages.server_error) { %>
       <p style="color: red"><%= messages.server_error %></p>

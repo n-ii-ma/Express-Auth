@@ -33,12 +33,7 @@ const initialize = (passport) => {
     }
   };
 
-  passport.use(
-    new LocalStrategy(
-      { usernameField: "username", passwordField: "password" },
-      authenticateUser
-    )
-  );
+  passport.use(new LocalStrategy(authenticateUser));
 
   // Store user id in session
   passport.serializeUser((user, done) => {
@@ -48,7 +43,7 @@ const initialize = (passport) => {
   // Fetch user data from session
   passport.deserializeUser(async (id, done) => {
     try {
-      // Checking if user with the stored id exists
+      // Fetching user data of the stored id from session
       const findUser = await db.query(findUserById, [id]);
       const user = findUser.rows[0];
       return done(null, user);

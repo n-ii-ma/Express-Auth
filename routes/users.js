@@ -5,7 +5,7 @@ const usersRouter = express.Router();
 const passport = require("passport");
 
 // Callbacks
-const { register } = require("../controllers/usersCallbacks");
+const register = require("../controllers/usersCallbacks");
 
 // Helper functions
 const {
@@ -29,7 +29,7 @@ const limiter = rateLimit({
 });
 
 // Homepage
-usersRouter.get("/", (req, res) => {
+usersRouter.get("/", checkAuthenticated, (req, res) => {
   res.render("home");
 });
 
@@ -48,13 +48,6 @@ usersRouter.get("/dashboard", checkNotAuthenticated, (req, res) => {
   res.render("dashboard", { name: req.user.name });
 });
 
-// Logout
-usersRouter.get("/logout", checkNotAuthenticated, (req, res) => {
-  req.logOut();
-  req.flash("success_msg", "Successfully Logged Out");
-  res.redirect("/users/login");
-});
-
 // POST register
 usersRouter.post("/register", registerValidation, register);
 
@@ -68,5 +61,12 @@ usersRouter.post(
     failureFlash: true,
   })
 );
+
+// Logout
+usersRouter.post("/logout", checkNotAuthenticated, (req, res) => {
+  req.logOut();
+  req.flash("success", "Successfully Logged Out");
+  res.redirect("/users/login");
+});
 
 module.exports = usersRouter;
