@@ -21,9 +21,9 @@ const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 10, // 10 requests
-  messsage: "Too many requests, please try again later.",
+  messsage: "Too many requests! please try again later.",
   handler: (req, res) => {
-    req.flash("limiter", "Too Many Requests, Please Try Again Later");
+    req.flash("limiter", "Too Many Requests! Please Try Again Later");
     res.redirect("/users/login");
   },
 });
