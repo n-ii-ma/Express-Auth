@@ -40,6 +40,11 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 604800,
+      secure: isProduction ? true : false,
+      sameSite: isProduction ? "none" : "lax",
+    },
     store: new pgSession({
       pool: db,
       createTableIfMissing: true,

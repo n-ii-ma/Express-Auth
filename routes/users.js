@@ -64,9 +64,12 @@ usersRouter.post(
 
 // Logout
 usersRouter.post("/logout", checkNotAuthenticated, (req, res) => {
-  req.logOut();
-  req.flash("success", "Successfully Logged Out");
-  res.redirect("/users/login");
+  req.logout();
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.clearCookie("connect.sid");
+    res.redirect("/users/login");
+  });
 });
 
 module.exports = usersRouter;
