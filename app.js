@@ -42,6 +42,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 604800,
+      secure: isProduction ? true : false,
       sameSite: "lax",
     },
     store: new pgSession({
