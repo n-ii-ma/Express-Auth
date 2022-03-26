@@ -9,7 +9,8 @@ const app = express();
 const cors = require("cors");
 const isProduction = process.env.NODE_ENV === "production";
 const corsOptions = {
-  origin: isProduction ? "https://express-auth-1.herokuapp.com" : "*",
+  credentials: true,
+  origin: isProduction ? process.env.ADDRESS : "*",
 };
 
 app.use(cors(corsOptions));
@@ -29,6 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 // Logger with Morgan
 const morgan = require("morgan");
 app.use(morgan("dev"));
+
+// Trust Proxy
+app.set("trust proxy", 1);
 
 // Express Session
 const session = require("express-session");
@@ -51,9 +55,6 @@ app.use(
     }),
   })
 );
-
-// Trust Proxy
-app.set("trust proxy", 1);
 
 // Passport
 const initialize = require("./configs/passport");
