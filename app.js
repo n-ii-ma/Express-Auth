@@ -52,6 +52,9 @@ app.use(
   })
 );
 
+// Trust Proxy
+app.set("trust proxy", 1);
+
 // Passport
 const initialize = require("./configs/passport");
 const passport = require("passport");
