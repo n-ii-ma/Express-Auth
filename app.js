@@ -32,8 +32,8 @@ app.use(morgan("dev"));
 
 // Express Session
 const session = require("express-session");
-// const db = require("./db/index");
-// const pgSession = require("connect-pg-simple")(session);
+const db = require("./db/index");
+const pgSession = require("connect-pg-simple")(session);
 
 app.use(
   session({
@@ -43,6 +43,10 @@ app.use(
     cookie: {
       maxAge: 604800,
     },
+    store: new pgSession({
+      pool: db,
+      createTableIfMissing: true,
+    }),
   })
 );
 
