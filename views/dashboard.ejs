@@ -16,6 +16,7 @@
   <body style="text-align: center">
     <h1>Welcome <%= name %></h1>
     <form action="/users/logout" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <button type="submit" style="color: red">Log Out</button>
     </form>
   </body>

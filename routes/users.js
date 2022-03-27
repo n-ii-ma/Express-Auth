@@ -35,17 +35,17 @@ usersRouter.get("/", checkAuthenticated, (req, res) => {
 
 // Register
 usersRouter.get("/register", checkAuthenticated, (req, res) => {
-  res.render("register");
+  res.render("register", { csrfToken: req.csrfToken() });
 });
 
 // Login
 usersRouter.get("/login", checkAuthenticated, (req, res) => {
-  res.render("login");
+  res.render("login", { csrfToken: req.csrfToken() });
 });
 
 // Dashboard
 usersRouter.get("/dashboard", checkNotAuthenticated, (req, res) => {
-  res.render("dashboard", { name: req.user.name });
+  res.render("dashboard", { name: req.user.name, csrfToken: req.csrfToken() });
 });
 
 // POST register

@@ -56,6 +56,10 @@ app.use(
   })
 );
 
+// CSRF
+const csurf = require("csurf");
+app.use(csurf());
+
 // Passport
 const initialize = require("./configs/passport");
 const passport = require("passport");
@@ -81,8 +85,13 @@ app.use("/users", usersRouter);
 
 // Error handling
 app.use((err, req, res, next) => {
-  const status = err.status || 500;
-  res.status(status).send(err.message);
+  // CSRF error handling
+  if (err.code === "EBADCSRFTOKEN") {
+    res.status(403).send("Form Tampered With!");
+  } else {
+    const status = err.status || 500;
+    res.status(status).send(err.message);
+  }
 });
 
 // Server

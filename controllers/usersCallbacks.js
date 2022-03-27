@@ -15,7 +15,7 @@ const register = async (req, res) => {
   // Validation
   if (!errors.isEmpty()) {
     req.flash("validation_errors", `${errors.array()[0].msg}`);
-    return res.status(400).render("register");
+    return res.status(400).render("register", { csrfToken: req.csrfToken() });
   }
 
   // Hash password
@@ -29,10 +29,10 @@ const register = async (req, res) => {
     // If UNIQUE constraint is violated
     if (err.code == "23505") {
       req.flash("constraint_error", "Email or Username Already Taken");
-      res.status(400).render("register");
+      res.status(400).render("register", { csrfToken: req.csrfToken() });
     } else {
       req.flash("server_error", "Something Went Wrong");
-      res.status(500).render("register");
+      res.status(500).render("register", { csrfToken: req.csrfToken() });
     }
   }
 };
