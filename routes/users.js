@@ -66,9 +66,12 @@ usersRouter.post(
 usersRouter.post("/logout", checkNotAuthenticated, (req, res) => {
   req.logout();
   req.session.destroy((err) => {
-    if (err) throw err;
-    res.clearCookie("connect.sid");
-    res.redirect("/users/login");
+    if (err) {
+      next(err);
+    } else {
+      res.clearCookie("connect.sid");
+      res.redirect("/users/login");
+    }
   });
 });
 

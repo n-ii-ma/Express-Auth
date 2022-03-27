@@ -45,7 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 604800,
+      maxAge: 604800000, // 1 week
       secure: isProduction ? true : false,
       sameSite: isProduction ? "none" : "lax",
     },
